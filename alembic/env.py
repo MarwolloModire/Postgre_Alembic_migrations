@@ -1,6 +1,4 @@
 from __future__ import with_statement
-from src.models import Task
-from src.config import DATABASE_URL, Base
 from logging.config import fileConfig
 
 from sqlalchemy.engine import Connection
@@ -8,11 +6,14 @@ from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import create_async_engine
 import asyncio
 from alembic import context
+
 import sys
 from os.path import dirname, abspath
 
-# Может тут проблема этой точки кроется ?
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
+
+from src.config import DATABASE_URL, Base  # noqa  # isort:ignore
+from src.models import Task  # noqa  # isort:ignore
 
 config = context.config
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
